@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class AssignmentId implements Serializable {
-    private int projectIDFS;
-    private int employeeIDFS;
+    private Project project;
+    private Employee employee;
 
     public AssignmentId() {
         super();
     }
 
-    public AssignmentId(int projectIDFS, int employeeIDFS) {
-        this.projectIDFS = projectIDFS;
-        this.employeeIDFS = employeeIDFS;
+    public AssignmentId(Project project, Employee employee) {
+        this.project = project;
+        this.employee = employee;
     }
 
     @Override
@@ -27,11 +27,11 @@ public class AssignmentId implements Serializable {
         }
 
         AssignmentId that = (AssignmentId) object;
-        return projectIDFS == that.projectIDFS && employeeIDFS == that.employeeIDFS;
+        return Objects.equals(project, that.project) && Objects.equals(employee, that.employee);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectIDFS, employeeIDFS);
+        return Objects.hash(project, employee);
     }
 }

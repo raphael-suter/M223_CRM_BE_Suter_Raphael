@@ -2,6 +2,7 @@ package ch.axa.ita.rs.m233_ap_b.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "mitarbeiter")
@@ -21,6 +22,15 @@ public class Employee {
 
     @Column(name = "stundensatz")
     private double hourlyRate;
+
+    @Column(name = "benutzername")
+    private String username;
+
+    @Column(name = "passwort")
+    private String password;
+
+    @Column(name = "token")
+    private String token;
 
     @OneToMany(mappedBy = "employee")
     private List<Assignment> assignments;
@@ -65,11 +75,54 @@ public class Employee {
         this.hourlyRate = hourlyRate;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public List<Assignment> getAssignments() {
         return assignments;
     }
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+
+        Employee employee = (Employee) object;
+        return id == employee.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
