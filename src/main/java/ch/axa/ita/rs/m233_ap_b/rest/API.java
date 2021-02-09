@@ -3,10 +3,10 @@ package ch.axa.ita.rs.m233_ap_b.rest;
 import ch.axa.ita.rs.m233_ap_b.model.Employee;
 import ch.axa.ita.rs.m233_ap_b.model.Message;
 import ch.axa.ita.rs.m233_ap_b.model.SignInData;
-import ch.axa.ita.rs.m233_ap_b.model.Token;
 import ch.axa.ita.rs.m233_ap_b.repository.AssignmentRepository;
 import ch.axa.ita.rs.m233_ap_b.repository.EmployeeRepository;
 import ch.axa.ita.rs.m233_ap_b.repository.ProjectRepository;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +14,8 @@ import java.util.Optional;
 
 import static ch.axa.ita.rs.m233_ap_b.utility.HashGenerator.hash;
 import static ch.axa.ita.rs.m233_ap_b.utility.ResponseGenerator.*;
-import static ch.axa.ita.rs.m233_ap_b.utility.TokenGenerator.token;
+import static ch.axa.ita.rs.m233_ap_b.utility.TokenTools.extractTokenFromHttpHeaders;
+import static ch.axa.ita.rs.m233_ap_b.utility.TokenTools.generateToken;
 
 @RestController
 @RequestMapping("/api")
@@ -46,15 +47,31 @@ public class API {
             String passwordFromSignInData = hash(signInData.getPassword());
 
             if (passwordFromDB.equals(passwordFromSignInData)) {
-                Token token = token();
+                String token = generateToken();
 
-                employee.setToken(token.getToken());
+                employee.setToken(token);
                 employeeRepository.save(employee);
 
-                return ok(token);
+                return ok(new Message(token));
             }
 
             return badRequest(new Message("Das Passwort ist falsch."));
+        }
+
+        return notFound(new Message("Dieser Benutzer wurde nicht gefunden."));
+    }
+
+    @PostMapping("/sign_out")
+    private ResponseEntity<?> signOut(@RequestHeader HttpHeaders httpHeaders) {
+        Optional<Employee> userFromDB = employeeRepository.findByToken(extractTokenFromHttpHeaders(httpHeaders));
+
+        if (userFromDB.isPresent()) {
+            Employee employee = userFromDB.get();
+
+            employee.setToken(null);
+            employeeRepository.save(employee);
+
+            return ok();
         }
 
         return notFound(new Message("Dieser Benutzer wurde nicht gefunden."));

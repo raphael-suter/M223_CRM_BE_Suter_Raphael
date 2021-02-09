@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("SELECT e FROM Employee e WHERE e.username = ?1")
     Optional<Employee> findByUsername(String username);
+
+    @Query("SELECT e FROM Employee e WHERE e.token = ?1")
+    Optional<Employee> findByToken(String token);
 }
