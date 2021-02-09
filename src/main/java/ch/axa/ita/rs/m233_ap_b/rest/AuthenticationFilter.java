@@ -48,7 +48,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         return authorizationHeader.substring(7);
     }
 
-    private boolean isAuthorized(HttpServletRequest httpServletRequest) {
+    public boolean isAuthorized(HttpServletRequest httpServletRequest) {
         return employeeRepository
                 .findByToken(getToken(httpServletRequest))
                 .isPresent();
