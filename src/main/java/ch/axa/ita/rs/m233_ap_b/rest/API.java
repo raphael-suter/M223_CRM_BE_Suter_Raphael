@@ -14,8 +14,8 @@ import java.util.Optional;
 
 import static ch.axa.ita.rs.m233_ap_b.utility.HashGenerator.hash;
 import static ch.axa.ita.rs.m233_ap_b.utility.ResponseGenerator.*;
-import static ch.axa.ita.rs.m233_ap_b.utility.TokenTools.extractTokenFromHttpHeaders;
-import static ch.axa.ita.rs.m233_ap_b.utility.TokenTools.generateToken;
+import static ch.axa.ita.rs.m233_ap_b.utility.TokenTool.extractTokenFromHttpHeaders;
+import static ch.axa.ita.rs.m233_ap_b.utility.TokenTool.generateToken;
 
 @RestController
 @RequestMapping("/api")

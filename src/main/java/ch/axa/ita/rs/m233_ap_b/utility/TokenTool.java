@@ -5,7 +5,7 @@ import org.springframework.http.HttpHeaders;
 import java.util.Objects;
 import java.util.UUID;
 
-public class TokenTools {
+public class TokenTool {
     public static String generateToken() {
         String token = UUID
                 .randomUUID()
