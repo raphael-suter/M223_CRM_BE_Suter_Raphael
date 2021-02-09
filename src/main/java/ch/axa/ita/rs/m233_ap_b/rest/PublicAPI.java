@@ -3,9 +3,7 @@ package ch.axa.ita.rs.m233_ap_b.rest;
 import ch.axa.ita.rs.m233_ap_b.model.Employee;
 import ch.axa.ita.rs.m233_ap_b.model.Message;
 import ch.axa.ita.rs.m233_ap_b.model.SignInData;
-import ch.axa.ita.rs.m233_ap_b.repository.AssignmentRepository;
 import ch.axa.ita.rs.m233_ap_b.repository.EmployeeRepository;
-import ch.axa.ita.rs.m233_ap_b.repository.ProjectRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,19 +18,15 @@ import static ch.axa.ita.rs.m233_ap_b.utility.TokenTool.generateToken;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
-public class API {
+public class PublicAPI {
     private EmployeeRepository employeeRepository;
-    private AssignmentRepository assignmentRepository;
-    private ProjectRepository projectRepository;
 
-    public API(EmployeeRepository employeeRepository, AssignmentRepository assignmentRepository, ProjectRepository projectRepository) {
+    public PublicAPI(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        this.assignmentRepository = assignmentRepository;
-        this.projectRepository = projectRepository;
     }
 
     @GetMapping("/hello")
-    public ResponseEntity<?> getHello() {
+    public ResponseEntity<?> loadHello() {
         return ok(new Message("Hello!"));
     }
 

@@ -11,12 +11,12 @@ public class Assignment {
     @Id
     @ManyToOne
     @JoinColumn(name = "projekt_idfs")
+    @JsonIgnore
     private Project project;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "mitarbeiter_idfs")
-    @JsonIgnore
     private Employee employee;
 
     public Project getProject() {

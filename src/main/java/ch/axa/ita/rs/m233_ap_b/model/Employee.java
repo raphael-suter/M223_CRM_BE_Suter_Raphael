@@ -1,5 +1,7 @@
 package ch.axa.ita.rs.m233_ap_b.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +35,7 @@ public class Employee {
     private String token;
 
     @OneToMany(mappedBy = "employee")
+    @JsonIgnore
     private List<Assignment> assignments;
 
     public int getId() {
@@ -83,6 +86,7 @@ public class Employee {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -91,6 +95,7 @@ public class Employee {
         this.password = password;
     }
 
+    @JsonIgnore
     public String getToken() {
         return token;
     }

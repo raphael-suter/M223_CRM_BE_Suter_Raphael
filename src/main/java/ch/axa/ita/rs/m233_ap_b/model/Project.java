@@ -23,7 +23,6 @@ public class Project {
     private String status;
 
     @OneToMany(mappedBy = "project")
-    @JsonIgnore
     private List<Assignment> assignments;
 
     public int getId() {
