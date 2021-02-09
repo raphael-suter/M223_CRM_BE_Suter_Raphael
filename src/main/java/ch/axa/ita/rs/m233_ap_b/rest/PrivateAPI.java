@@ -2,7 +2,6 @@ package ch.axa.ita.rs.m233_ap_b.rest;
 
 import ch.axa.ita.rs.m233_ap_b.model.Project;
 import ch.axa.ita.rs.m233_ap_b.model.ProjectWithEmployees;
-import ch.axa.ita.rs.m233_ap_b.model.ProjectWithEmployeesCount;
 import ch.axa.ita.rs.m233_ap_b.repository.AssignmentRepository;
 import ch.axa.ita.rs.m233_ap_b.repository.EmployeeRepository;
 import ch.axa.ita.rs.m233_ap_b.repository.ProjectRepository;
@@ -34,10 +33,10 @@ public class PrivateAPI {
 
     @GetMapping("/project")
     public ResponseEntity<?> loadAllProjects() {
-        List<ProjectWithEmployeesCount> projects = projectRepository
+        List<ProjectWithEmployees> projects = projectRepository
                 .findAll()
                 .stream()
-                .map(project -> new ProjectWithEmployeesCount(project))
+                .map(project -> new ProjectWithEmployees(project))
                 .collect(Collectors.toList());
 
         return ok(projects);

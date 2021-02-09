@@ -3,6 +3,7 @@ package ch.axa.ita.rs.m233_ap_b.rest;
 import ch.axa.ita.rs.m233_ap_b.model.Employee;
 import ch.axa.ita.rs.m233_ap_b.model.Message;
 import ch.axa.ita.rs.m233_ap_b.model.SignInData;
+import ch.axa.ita.rs.m233_ap_b.model.SignInResponseData;
 import ch.axa.ita.rs.m233_ap_b.repository.EmployeeRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,7 @@ public class PublicAPI {
                 employee.setToken(token);
                 employeeRepository.save(employee);
 
-                return ok(new Message(token));
+                return ok(new SignInResponseData(employee.getId(), token));
             }
 
             return badRequest(new Message("Das Passwort ist falsch."));
